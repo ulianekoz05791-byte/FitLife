@@ -73,17 +73,34 @@ def test_6_result(run_program):
             "Программа должна запрашивать данные в таком порядке: "
             "имя, возраст, вес, рост."
         )
-
     assert output.strip(), (
         "Программа ничего не вывела.\n"
         "Проверьте порядок ввода данных: "
         "имя, возраст, вес, рост."
     )
+
     numbers = extract_numbers(output)
-    assert any(num.startswith("23.3") for num in numbers), (
+    age, weight, height = 25, 75.5, 1.8
+    expected_bmi = str(round(weight / height ** 2, 1))
+
+    wrong_bmi_values = {
+        str(round(height / weight ** 2, 1)),
+        str(round(age / height ** 2, 1)),
+        str(round(weight / age ** 2, 1)),
+        str(round(height / age ** 2, 1)),
+        str(round(age / weight ** 2, 1)),
+    }
+    if any(num in wrong_bmi_values for num in numbers):
+        raise AssertionError(
+            "Проверьте порядок ввода данных. "
+            "Программа должна запрашивать данные в таком порядке: "
+            "имя, возраст, вес, рост."
+        )
+    assert expected_bmi in numbers, (
         "Неверно рассчитан ИМТ. "
         "Для веса 75.5 кг и роста 1.8 м должно получиться около 23.3."
     )
+
     allowed_water_values = {"2.3", "2.26", "2.27", "2.265"}
     assert any(num in allowed_water_values for num in numbers), (
         "Неверно рассчитана норма воды. "
