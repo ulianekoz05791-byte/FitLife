@@ -1,26 +1,30 @@
 # Проект FitLife - MVP версия 1.0
+import sys
+import io
+sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
-# 1. Знакомство
-# TODO: Спроси у пользователя имя и сохрани в переменную user_name
-# TODO: Спроси возраст и сохрани в переменную user_age (не забудь преобразовать в число)
+WATER_PEG_KG = 30
+ML_IN_LITRE = 1000
 
+user_name = input('Доброго времени суток, пожайлуста, напишите ваше имя:')
 
-# 2. Сбор данных
-# TODO: Запроси вес (в кг) и сохрани в user_weight (тип float)
-# TODO: Запроси рост (в метрах, например 1.75) и сохрани в user_height (тип float)
+user_age = int(input('Введите Ваш возраст:'))
 
+user_weight = float(input('Введите Ваш вес в кг. (пример: 56.6):'))
 
-# 3. Логика расчетов (Функции как "черный ящик": используем арифметику)
-# Формула ИМТ: вес разделить на (рост в квадрате)
-# TODO: Рассчитай bmi (Индекс массы тела)
+user_height = float(input('Введите ваш рост в метрах (пример: 1.77):'))
 
+bmi = round(user_weight / (user_height**2), 1)
 
-# Подсчет воды: вес * 30 мл
-# TODO: Рассчитай water_needed
+water_ml = user_weight * WATER_PEG_KG
+water_l = water_ml / 1000
 
+print()
 
-# 4. Вывод красивого результата
-# TODO: Используй f-строку, чтобы вывести приветствие, например: "Привет, Иван!"
-# TODO: Выведи возраст, ИМТ (округленный до 1 знака) и норму воды.
+print(f'Отчёт для пользователя: {user_name} ({user_age} г.)')
+print(f'Твой Индекс Массы Тела: {bmi}')
+print(f'Рекомендуемая норма воды: {water_l:.1f} л. в день ')
+
 print("Расчет окончен. Будьте здоровы!")
